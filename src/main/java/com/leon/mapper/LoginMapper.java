@@ -9,6 +9,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 
+/**
+ * @author Leon
+ */
 @Mapper
 public interface LoginMapper extends BaseMapper<UserDTO> {
 
@@ -23,4 +26,4 @@ public interface LoginMapper extends BaseMapper<UserDTO> {
             "email,card_id,gender,role from qarsystem.student where student_id = #{username} and password = #{password}")
     Student studentLogin(Integer username, String password);
 
-} 
+}

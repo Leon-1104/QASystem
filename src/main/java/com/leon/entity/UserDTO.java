@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * 接收前端登录用户的请求数据实体类
+ * @author Leon
  */
 
 @Data

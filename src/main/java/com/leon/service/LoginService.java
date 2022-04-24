@@ -6,6 +6,9 @@ import com.leon.entity.Student;
 import com.leon.entity.Teacher;
 import com.leon.entity.UserDTO;
 
+/**
+ * @author Leon
+ */
 public interface LoginService extends IService<UserDTO> {
 
     Admin adminLogin(Integer username, String password);

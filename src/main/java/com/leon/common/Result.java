@@ -4,6 +4,7 @@ import lombok.Data;
 
 /**
  * 接口统一返回包装类
+ * @author Leon
  */
 @Data
 public class Result {

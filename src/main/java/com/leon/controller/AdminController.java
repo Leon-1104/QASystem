@@ -53,6 +53,7 @@ public class AdminController {
         return new Result(true, adminService.getById(id));
     }
 
+    @SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
     @GetMapping("{currentPage}/{pageSize}")
     public Result getPage(@PathVariable int currentPage, @PathVariable int pageSize, Admin Admin) {
         IPage<Admin> page = adminService.getPage(currentPage, pageSize, Admin);

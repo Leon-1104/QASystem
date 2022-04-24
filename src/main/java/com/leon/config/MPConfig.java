@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * mp拦截器配置
+ * @author Leon
  */
 @Configuration
 public class MPConfig {

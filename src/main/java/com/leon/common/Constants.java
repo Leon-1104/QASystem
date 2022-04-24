@@ -1,5 +1,8 @@
 package com.leon.common;
 
+/**
+ * @author Leon
+ */
 public interface Constants {
     String CODE_200 = "200";//成功
     String CODE_500 = "500";//系统错误

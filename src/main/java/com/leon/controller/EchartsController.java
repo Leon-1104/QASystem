@@ -16,6 +16,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Leon
+ */
 @RestController
 @RequestMapping("/echarts")
 public class EchartsController {
@@ -99,8 +102,6 @@ public class EchartsController {
         int adminCount = adminService.list().size();
         int studentsCount = studentService.list().size();
         int teacherCount = teacherService.list().size();
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("x", CollUtil.newArrayList("管理员用户", "教师用户", "学生用户"));
         return new Result(true, CollUtil.newArrayList(adminCount, teacherCount, studentsCount));
     }
 
@@ -110,7 +111,7 @@ public class EchartsController {
         int annCount=0;
         int newsCount=0;
         for (Article article : articleList) {
-            if (article.getType().equals("ANN")){
+            if ("ANN".equals(article.getType())){
                 annCount++;
             }else {
                 newsCount++;

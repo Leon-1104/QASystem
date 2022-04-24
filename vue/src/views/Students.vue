@@ -318,10 +318,10 @@ export default {
         let ids = this.multipleSelection.map(v => v.studentId)  // [{}, {}, {}] => [1,2,3]
         this.request.post("/students/del/batch", ids).then(res => {
           if (res.flag) {
-            this.$message.success("批量删除成功");
+            this.$message.success(res.msg);
             this.load();
           } else {
-            this.$message.error("批量删除失败");
+            this.$message.error(res.msg);
           }
         }).finally(() => {//刷新页面
           this.load();

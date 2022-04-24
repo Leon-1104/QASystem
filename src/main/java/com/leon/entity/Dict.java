@@ -6,6 +6,7 @@ import lombok.Data;
 /**
  * 字典实体类
  *
+ * @author Leon
  */
 @TableName("sys_dict")
 @Data

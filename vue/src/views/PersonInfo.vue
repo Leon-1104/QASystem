@@ -10,17 +10,17 @@
         <img v-if="form.avatar" :src="form.avatar" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
-      <el-form-item label="用户名">
+      <el-form-item label="用户名" >
         <el-input  v-if="this.userRole==='0'"  v-model="form.adminName"  autocomplete="off"></el-input>
         <el-input  v-else  v-model="form.teacherName"  autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="性别">
+      <el-form-item label="性别" prop="gender">
         <el-select v-model="form.gender" placeholder="请选择性别">
           <el-option label="男" value="男"></el-option>
           <el-option label="女" value="女"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="年级" v-if="this.userRole==='2'">
+      <el-form-item label="年级" v-if="this.userRole==='2'" prop="grade">
         <el-input v-model="form.grade" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="专业" v-if="this.userRole==='2'">

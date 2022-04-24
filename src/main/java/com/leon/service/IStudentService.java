@@ -13,9 +13,9 @@ import com.leon.entity.Student;
  * @since 2022-03-12
  */
 public interface IStudentService extends IService<Student> {
-    IPage<Student> getPage(int currentPage, int PageSize, Student student);
+    IPage<Student> getPage(int currentPage, int pageSize, Student student);
 
-    IPage<Student> getPage(int currentPage, int PageSize);
+    IPage<Student> getPage(int currentPage, int pageSize);
 
     Boolean updatePasswordById(Integer studentId, String password);
 }

@@ -9,6 +9,9 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
+/**
+ * @author Leon
+ */
 @Mapper
 public interface RoleMenuMapper extends BaseMapper<RoleMenu> {
     @Delete("delete from qarsystem.sys_role_menu where role_id=#{roleId}")

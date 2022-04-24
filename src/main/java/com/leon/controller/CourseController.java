@@ -39,6 +39,11 @@ public class CourseController {
     @Resource
     private ITeacherService teacherService;
 
+
+
+
+
+
     /**
      * 查询所有
      *
@@ -168,7 +173,7 @@ public class CourseController {
         List<Course> list = courseService.list();
         // 通过工具类创建writer 写出到磁盘路径
 //        ExcelWriter writer = ExcelUtil.getWriter(filesUploadPath + "/用户信息.xlsx");
-        // 在内存操作，写出到浏览器
+
         ExcelWriter excelWriter = ExcelUtil.getWriter(true);
         List<Map<String, Object>> rows = list.stream().map(item -> {
             Map<String, Object> maps = new HashMap<>();

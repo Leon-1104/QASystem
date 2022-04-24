@@ -235,9 +235,9 @@ export default {
 
         if (resp.flag) {
           this.dialogFormVisibleEdit = false;
-          this.$message.success("保存成功！");
+          this.$message.success(resp.msg);
         } else {
-          this.$message.error("保存失败");
+          this.$message.error(resp.msg);
         }
       }).finally(() => {
         this.load();
@@ -323,10 +323,10 @@ export default {
         let ids = this.multipleSelection.map(v => v.id)  // [{}, {}, {}] => [1,2,3]
         this.request.post("/role/del/batch", ids).then(res => {
           if (res.flag) {
-            this.$message.success("批量删除成功");
+            this.$message.success(res.msg);
             this.load();
           } else {
-            this.$message.error("批量删除失败");
+            this.$message.error(res.msg);
           }
         }).finally(() => {//刷新页面
           this.load();

@@ -4,6 +4,7 @@ import lombok.Getter;
 
 /**
  * 自定义异常
+ * @author Leon
  */
 @Getter
 public class ServiceException extends RuntimeException {

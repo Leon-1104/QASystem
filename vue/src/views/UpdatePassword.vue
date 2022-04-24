@@ -91,10 +91,10 @@ export default {
     submitForm() {
       this.request.put(this.path +'/'+ this.userId +'/'+ this.ruleForm.pass).then(resp => {
         if (resp.flag) {
-          this.$message("修改成功，请重新登录")
+          this.$message.success("修改成功，请重新登录")
           this.$store.commit('logout');
         } else {
-          this.$message("修改失败");
+          this.$message.error("修改失败");
         }
       })
 

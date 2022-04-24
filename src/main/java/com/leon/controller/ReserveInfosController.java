@@ -200,8 +200,7 @@ public class ReserveInfosController {
         // 从数据库查询出所有的数据
         List<ReserveInfos> list = reserveInfosService.list();
         // 通过工具类创建writer 写出到磁盘路径
-//        ExcelWriter writer = ExcelUtil.getWriter(filesUploadPath + "/用户信息.xlsx");
-        // 在内存操作，写出到浏览器
+
         ExcelWriter excelWriter = ExcelUtil.getWriter(true);
         List<Map<String, Object>> rows = list.stream().map(item -> {
             Map<String, Object> maps = new HashMap<>();

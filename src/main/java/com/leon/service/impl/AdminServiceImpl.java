@@ -27,18 +27,18 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     private AdminMapper adminMapper;
 
     @Override
-    public IPage<Admin> getPage(int currentPage, int PageSize, Admin admin) {
+    public IPage<Admin> getPage(int currentPage, int pageSize, Admin admin) {
 
         LambdaQueryWrapper<Admin> lqw = new LambdaQueryWrapper<>();
-        IPage<Admin> page = new Page<>(currentPage, PageSize);
+        IPage<Admin> page = new Page<>(currentPage, pageSize);
         adminMapper.selectPage(page, lqw);
 
         return page;
     }
 
     @Override
-    public IPage<Admin> getPage(int currentPage, int PageSize) {
-        IPage<Admin> page = new Page<>(currentPage, PageSize);
+    public IPage<Admin> getPage(int currentPage, int pageSize) {
+        IPage<Admin> page = new Page<>(currentPage, pageSize);
         adminMapper.selectPage(page, null);
 
         return page;

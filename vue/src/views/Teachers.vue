@@ -269,7 +269,7 @@ export default {
         if (resp.flag && resp.data != null) {
           this.form = resp.data;
         } else {
-          this.$message.error(res.msg)
+          this.$message.error(resp.msg)
         }
       }).finally(() => {
         this.load();
@@ -322,10 +322,10 @@ export default {
         let ids = this.multipleSelection.map(v => v.teacherId)  // [{}, {}, {}] => [1,2,3]
         this.request.post("/teachers/del/batch", ids).then(res => {
           if (res.flag) {
-            this.$message.success("批量删除成功");
+            this.$message.success(res.msg);
             this.load();
           } else {
-            this.$message.error("批量删除失败");
+            this.$message.error(res.msg);
           }
         }).finally(() => {//刷新页面
           this.load();
