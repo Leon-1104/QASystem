@@ -190,7 +190,7 @@ export default {
           if (resp.flag && resp.data != null) {
             this.formData = resp.data;
           } else {
-            this.$message.error(res.msg)
+            this.$message.error(resp.msg)
           }
         })
       }

@@ -53,17 +53,20 @@ public class TeacherController {
 
     @PutMapping("/{teacherId}/{password}")
     public Result updatePassword(@PathVariable Integer teacherId,@PathVariable String password) {
-      return new Result(teacherService.updatePasswordById(teacherId,password));
+        Boolean flag = teacherService.updatePasswordById(teacherId, password);
+        return new Result(flag, flag ? "修改成功" : "修改失败");
     }
 
     @PutMapping
     public Result update(@RequestBody Teacher teacher) {
-        return new Result(teacherService.updateById(teacher));
+        boolean flag = teacherService.updateById(teacher);
+        return new Result(flag, flag ? "修改成功" : "修改失败");
     }
 
     @DeleteMapping("{id}")
     public Result delete(@PathVariable Integer id) {
-        return new Result(teacherService.removeById(id));
+        boolean flag = teacherService.removeById(id);
+        return new Result(flag, flag ? "删除成功" : "删除失败");
     }
 
     /**
@@ -74,7 +77,8 @@ public class TeacherController {
      */
     @PostMapping("/del/batch")
     public Result deleteByIds(@RequestBody List<Integer> ids) {
-        return new Result(teacherService.removeByIds(ids));
+        boolean flag = teacherService.removeByIds(ids);
+        return new Result(flag, flag ? "删除成功" : "删除失败");
     }
 
     @GetMapping("{id}")

@@ -37,13 +37,14 @@ public class RoleController {
 
     @PutMapping
     public Result update(@RequestBody Role role) {
-        return new Result(roleService.updateById(role));
+        boolean flag = roleService.updateById(role);
+        return new Result(flag,flag?"修改成功":"修改失败");
     }
 
     @DeleteMapping("{id}")
     public Result delete(@PathVariable Integer id) {
-
-        return new Result(roleService.removeById(id));
+        boolean flag = roleService.removeById(id);
+        return new Result(flag,flag?"删除成功":"删除失败");
     }
 
     /**
@@ -54,7 +55,8 @@ public class RoleController {
      */
     @PostMapping("/del/batch")
     public Result deleteByIds(@RequestBody List<Integer> ids) {
-        return new Result(roleService.removeByIds(ids));
+        boolean flag = roleService.removeByIds(ids);
+        return new Result(flag,flag?"删除成功":"删除失败");
     }
 
     @GetMapping("{id}")

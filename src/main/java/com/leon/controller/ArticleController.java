@@ -40,13 +40,14 @@ public class ArticleController {
 
     @PutMapping
     public Result update(@RequestBody Article article) {
-        return new Result(articleService.updateById(article));
+        boolean flag = articleService.updateById(article);
+        return new Result(flag,flag?"修改成功":"修改失败");
     }
 
     @DeleteMapping("{id}")
     public Result delete(@PathVariable Integer id) {
-
-        return new Result(articleService.removeById(id));
+        boolean flag = articleService.removeById(id);
+        return new Result(flag,flag?"修改成功":"修改失败");
     }
 
     /**
@@ -57,7 +58,8 @@ public class ArticleController {
      */
     @PostMapping("/del/batch")
     public Result deleteByIds(@RequestBody List<Integer> ids) {
-        return new Result(articleService.removeByIds(ids));
+        boolean flag = articleService.removeByIds(ids);
+        return new Result(flag,flag?"修改成功":"修改失败");
     }
 
     @GetMapping("{id}")

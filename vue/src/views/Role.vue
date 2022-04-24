@@ -151,54 +151,38 @@ export default {
         role: [
           {required: true, message: '请输入唯一标识', trigger: 'blur'}
         ],
-        description:[
+        description: [
           {required: true, message: '请输入描述', trigger: 'blur'}
         ]
       },
       pagination: {//分页相关模型数据
         currentPage: 1,//当前页码
-        pageSize
-  :
-    10,//每页显示的记录数
-        total
-  :
-    0,//总记录数
-        name
-  :
-    ''
-  }
-  ,
-    user: localStorage.getItem("user") ? JSON.stringify("user") : {},
-        expends
-  :
-    [],
-        checks
-  :
-    [],
-        roleId
-  :
-    0,
-        roleFlag
-  :
-    '',
-        roleTypes
-  :
-    [{
-      id: 1,
-      label: "管理员",
-      value: '0'
-    },
-      {
-        id: 2,
-        label: "老师",
-        value: '1'
+        pageSize: 10,//每页显示的记录数
+        total: 0,//总记录数
+        name: ''
       },
-      {
-        id: 3,
-        label: "学生",
-        value: '2'
-      }]
-  }
+      user: localStorage.getItem("user") ? JSON.stringify("user") : {},
+      expends: [],
+      checks: [],
+      roleId: 0,
+      roleFlag: '',
+      roleTypes:
+          [{
+            id: 1,
+            label: "管理员",
+            value: '0'
+          },
+            {
+              id: 2,
+              label: "老师",
+              value: '1'
+            },
+            {
+              id: 3,
+              label: "学生",
+              value: '2'
+            }]
+    }
   },
   created() {
     this.load()
@@ -240,7 +224,7 @@ export default {
         if (resp.flag && resp.data != null) {
           this.form = resp.data;
         } else {
-          this.$message.error(res.msg)
+          this.$message.error(resp.msg)
         }
       }).finally(() => {
         this.load();
@@ -284,9 +268,9 @@ export default {
         this.request.delete("/role/" + row.id).then(resp => {
           //判断操作是否成功
           if (resp.flag) {
-            this.$message.success(res.msg);
+            this.$message.success(resp.msg);
           } else {
-            this.$message.error(res.msg)
+            this.$message.error(resp.msg)
           }
         }).finally(() => {//刷新页面
           this.load();

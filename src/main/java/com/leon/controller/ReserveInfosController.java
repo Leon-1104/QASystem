@@ -101,12 +101,14 @@ public class ReserveInfosController {
 
     @PutMapping
     public Result update(@RequestBody ReserveInfos reserveInfos) {
-        return new Result(reserveInfosService.updateById(reserveInfos));
+        boolean flag = reserveInfosService.updateById(reserveInfos);
+        return new Result(flag,flag?"修改成功":"修改失败");
     }
 
     @DeleteMapping("{id}")
     public Result delete(@PathVariable Integer id) {
-        return new Result(reserveInfosService.removeById(id));
+        boolean flag = reserveInfosService.removeById(id);
+        return new Result(flag,flag?"删除成功":"删除失败");
     }
 
     /**
@@ -162,7 +164,8 @@ public class ReserveInfosController {
      */
     @PostMapping("/del/batch")
     public Result deleteByIds(@RequestBody List<Integer> ids) {
-        return new Result(reserveInfosService.removeByIds(ids));
+        boolean flag = reserveInfosService.removeByIds(ids);
+        return new Result(flag,flag?"删除成功":"删除失败");
     }
 
     @GetMapping("{id}")

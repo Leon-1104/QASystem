@@ -49,13 +49,15 @@ public class MenuController {
 
     @PutMapping
     public Result update(@RequestBody Menu menu) {
-        return new Result(menuService.updateById(menu));
+        boolean flag = menuService.updateById(menu);
+        return new Result(flag,flag?"修改成功":"修改失败");
     }
 
     @DeleteMapping("{id}")
     public Result delete(@PathVariable Integer id) {
+        boolean flag = menuService.removeById(id);
+        return new Result(flag,flag?"删除成功":"删除失败");
 
-        return new Result(menuService.removeById(id));
     }
 
     /**
@@ -66,7 +68,8 @@ public class MenuController {
      */
     @PostMapping("/del/batch")
     public Result deleteByIds(@RequestBody List<Integer> ids) {
-        return new Result(menuService.removeByIds(ids));
+        boolean flag = menuService.removeByIds(ids);
+        return new Result(flag,flag?"删除成功":"删除失败");
     }
 
     @GetMapping("{id}")

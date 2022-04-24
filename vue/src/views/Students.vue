@@ -267,7 +267,7 @@ export default {
         if (resp.flag && resp.data != null) {
           this.form = resp.data;
         } else {
-          this.$message.error(res.msg)
+          this.$message.error(resp.msg)
         }
       }).finally(() => {
         this.load();

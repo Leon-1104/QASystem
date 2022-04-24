@@ -261,7 +261,7 @@ export default {
         if (resp.flag && resp.data != null) {
           this.form = resp.data;
         } else {
-          this.$message.error(res.msg)
+          this.$message.error(resp.msg)
         }
       }).finally(() => {
         this.load();
@@ -290,9 +290,9 @@ export default {
         this.request.delete("/article/" + row.id).then(resp => {
           //判断操作是否成功
           if (resp.flag) {
-            this.$message.success(res.msg);
+            this.$message.success(resp.msg);
           } else {
-            this.$message.error(res.msg)
+            this.$message.error(resp.msg)
           }
         }).finally(() => {//刷新页面
           this.load();

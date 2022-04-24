@@ -107,7 +107,8 @@ public class CourseController {
      */
     @DeleteMapping("{id}")
     public Result delete(@PathVariable Integer id) {
-        return new Result(courseService.removeById(id));
+        boolean flag = courseService.removeById(id);
+        return new Result(flag,flag?"删除成功":"删除失败");
     }
 
     /**
@@ -118,7 +119,8 @@ public class CourseController {
      */
     @PostMapping("/del/batch")
     public Result deleteByIds(@RequestBody List<Integer> ids) {
-        return new Result(courseService.removeByIds(ids));
+        boolean flag = courseService.removeByIds(ids);
+        return new Result(flag,flag?"删除成功":"删除失败");
     }
 
     /**

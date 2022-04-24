@@ -91,7 +91,8 @@ public class StudentController {
      */
     @PostMapping("/del/batch")
     public Result deleteByIds(@RequestBody List<Integer> ids) {
-        return new Result(studentService.removeByIds(ids));
+        boolean flag = studentService.removeByIds(ids);
+        return new Result(flag, flag ? "删除成功" : "删除失败");
     }
 
     /**
