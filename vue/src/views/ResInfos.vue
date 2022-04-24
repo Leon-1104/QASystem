@@ -15,7 +15,8 @@
     <el-table
         :data="tableData"
         border stripe
-        :header-cell-class-name="headerBg"
+        :header-cell-style="headerBg"
+        :cell-style="cellStyle"
         @selection-change="handleSelectionChange"
         tooltip-effect="dark"
     >
@@ -31,13 +32,19 @@
       </el-table-column>
       <el-table-column prop="studentName" label="学生姓名">
       </el-table-column>
-      <el-table-column prop="resTime" label="答疑时间">
+      <el-table-column prop="resTime" label="答疑时间" width="200">
       </el-table-column>
       <el-table-column prop="office" label="办公室">
       </el-table-column>
-      <el-table-column prop="createTime" label="申请时间">
+      <el-table-column prop="createTime" label="申请时间" width="200">
       </el-table-column>
       <el-table-column prop="acceptFlag" label="当前状态">
+        <template v-slot="scope">
+          <i class="el-icon-info" v-if="scope.row.acceptFlag==='WAIT'" style="color: dodgerblue">待处理</i>
+          <i class="el-icon-success" v-else-if="scope.row.acceptFlag==='ACCEPT'" style="color: #42b983">已接受</i>
+          <i class="el-icon-error" v-else-if="scope.row.acceptFlag==='REFUSE'" style="color: red">已拒绝</i>
+          <i class="el-icon-info" v-else-if="Date.parse(scope.row.resTime)<Date.now()" style="color: gray">已过期</i>
+        </template>
       </el-table-column>
       <el-table-column label="操作" width="200" align="center">
         <template slot-scope="scope">
@@ -65,13 +72,12 @@ export default {
   name: "ResInfos",
   data() {
     return {
-      teachers:[],
+      teachers: [],
       tableData: [],
       collapseBtnClass: 'el-icon-s-fold',
       isCollapse: false,//侧边栏是否收缩
       sideWidth: 200,
       logoTextShow: true,//侧边栏名称是否显示
-      headerBg: 'headerBg',//表格头部北京
       dialogFormVisible: false,
       dialogFormVisibleEdit: false,
       form: {},//表单数据
@@ -81,7 +87,7 @@ export default {
         total: 0,//总记录数
         courseName: '',
         teacherName: '',
-        studentName:'',
+        studentName: '',
       },
       user: localStorage.getItem("user") ? JSON.stringify("user") : {},
     }
@@ -95,18 +101,18 @@ export default {
 
       let param = "?courseName=" + this.pagination.courseName;
       param += "&teacherName=" + this.pagination.teacherName;
-      param+="&studentName="+this.pagination.studentName;
+      param += "&studentName=" + this.pagination.studentName;
       this.request.get("/resInfos/" + this.pagination.currentPage + "/" + this.pagination.pageSize + param).then(resp => {
         this.pagination.total = resp.data.total;
         this.pagination.currentPage = resp.data.current;
         this.pagination.pageSize = resp.data.size;
-        resp.data.records.forEach(item=>{
-          item.resTime=this.formatDateTime(item.resTime)
+        resp.data.records.forEach(item => {
+          item.resTime = this.formatDateTime(item.resTime)
 
         })
         this.tableData = resp.data.records;
 
-            // // 去重
+        // // 去重
         // let tempData2 =resp.data.records;
         // let hash = {};
         // tempData2 = tempData2.reduce(function (item, next) {
@@ -117,7 +123,13 @@ export default {
 
 
       })
-    }, formatDateTime(inputTime) {//处理后端发来的时间数据
+    }, headerBg() {
+      return 'background:#eee !important ;text-align: center';
+    },
+    cellStyle() {
+      return '  text-align: center;font-size: 13px;'
+    },
+    formatDateTime(inputTime) {//处理后端发来的时间数据
       if (!inputTime && typeof inputTime !== 'number') {
         return '';
       }
@@ -134,7 +146,7 @@ export default {
     },
     reSet() {//重置搜索框
       this.pagination.courseName = "";
-      this.pagination.teacherName='';
+      this.pagination.teacherName = '';
       this.load();
     },
     handleDelete(row) {//删除
@@ -186,9 +198,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.headerBg {
-  background: #eee !important;
-}
-</style>
