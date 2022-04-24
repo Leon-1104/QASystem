@@ -13,14 +13,14 @@
     </div>
     <!--            新增表单-->
     <el-dialog title="新增角色" :visible.sync="dialogFormVisible" width="30%">
-      <el-form :model="form" label-width="70px" size="small">
-        <el-form-item label="角色名称">
+      <el-form :model="form" label-width="80px" size="small" :rules="rules">
+        <el-form-item label="角色名称" prop="name">
           <el-input v-model="form.name" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="描述">
+        <el-form-item label="描述" prop="description">
           <el-input v-model="form.description" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="唯一标识">
+        <el-form-item label="唯一标识" prop="role">
           <el-select v-model="form.role" placeholder="请选择">
             <el-option
                 v-for="(item,index) in roleTypes"
@@ -39,14 +39,14 @@
 
     <!--        编辑表单-->
     <el-dialog title="编辑信息" :visible.sync="dialogFormVisibleEdit" width="30%">
-      <el-form :model="form" label-width="70px" size="small">
-        <el-form-item label="角色名称">
+      <el-form :model="form" label-width="80px" size="small" :rules="rules">
+        <el-form-item label="角色名称" prop="name">
           <el-input v-model="form.name" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="描述">
+        <el-form-item label="描述" prop="description">
           <el-input v-model="form.description" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="唯一标识">
+        <el-form-item label="唯一标识" prop="role">
           <el-select v-model="form.role" placeholder="请选择">
             <el-option
                 v-for="(item,index) in roleTypes"
@@ -101,10 +101,12 @@
       <el-table-column prop="role" label="唯一标识">
       </el-table-column>
       <el-table-column label="操作" width="280" align="center">
-        <template slot-scope="scope" >
+        <template slot-scope="scope">
           <el-button type="info" @click="selectMenu(scope.row)">分配菜单 <i class="el-icon-menu"></i></el-button>
-          <el-button type="success" @click="handleEdit(scope.row)" v-if="scope.row.role!=='0'">编辑 <i class="el-icon-edit"></i></el-button>
-          <el-button type="danger" @click="handleDelete(scope.row)" v-if="scope.row.role!=='0'">删除 <i class="el-icon-remove-outline"></i>
+          <el-button type="success" @click="handleEdit(scope.row)" v-if="scope.row.role!=='0'">编辑 <i
+              class="el-icon-edit"></i></el-button>
+          <el-button type="danger" @click="handleDelete(scope.row)" v-if="scope.row.role!=='0'">删除 <i
+              class="el-icon-remove-outline"></i>
           </el-button>
         </template>
       </el-table-column>
@@ -143,33 +145,60 @@ export default {
       defaultProps: {
         label: 'name'
       },
+      rules: {
+        name: [{required: true, message: '请输入名称', trigger: 'blur'}
+        ],
+        role: [
+          {required: true, message: '请输入唯一标识', trigger: 'blur'}
+        ],
+        description:[
+          {required: true, message: '请输入描述', trigger: 'blur'}
+        ]
+      },
       pagination: {//分页相关模型数据
         currentPage: 1,//当前页码
-        pageSize: 10,//每页显示的记录数
-        total: 0,//总记录数
-        name: ''
+        pageSize
+  :
+    10,//每页显示的记录数
+        total
+  :
+    0,//总记录数
+        name
+  :
+    ''
+  }
+  ,
+    user: localStorage.getItem("user") ? JSON.stringify("user") : {},
+        expends
+  :
+    [],
+        checks
+  :
+    [],
+        roleId
+  :
+    0,
+        roleFlag
+  :
+    '',
+        roleTypes
+  :
+    [{
+      id: 1,
+      label: "管理员",
+      value: '0'
+    },
+      {
+        id: 2,
+        label: "老师",
+        value: '1'
       },
-      user: localStorage.getItem("user") ? JSON.stringify("user") : {},
-      expends: [],
-      checks: [],
-      roleId: 0,
-      roleFlag: '',
-      roleTypes: [{
-        id: 1,
-        label: "管理员",
-        value: '0'
-      },
-        {
-          id: 2,
-          label: "老师",
-          value: '1'
-        },
-        {
-          id: 3,
-          label: "学生",
-          value: '2'
-        }]
-    }
+      {
+        id: 3,
+        label: "学生",
+        value: '2'
+      }]
+  }
   },
   created() {
     this.load()
@@ -292,9 +321,9 @@ export default {
              因此需要过滤一下
               经过查询如果数据库表中选中的子id并未包含在全选集中 则设为unchecked
               */
-              this.$nextTick(() => { //使用nextTick处理未来元素 等到这个元素渲染完成后才去使用
-                this.$refs.tree.setChecked(id, false);
-              })
+            this.$nextTick(() => { //使用nextTick处理未来元素 等到这个元素渲染完成后才去使用
+              this.$refs.tree.setChecked(id, false);
+            })
           }
         })
         this.menuDialogVis = true;

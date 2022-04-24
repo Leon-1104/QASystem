@@ -19,50 +19,50 @@
       <el-button type="primary" @click="exp" class="ml-5">导出 <i class="el-icon-top"></i></el-button>
     </div>
     <!--            新增表单-->
-        <el-dialog title="新增课程" :visible.sync="dialogFormVisible" width="30%">
-          <el-form :model="form" label-width="70px" size="small">
-            <el-form-item label="课程名">
-              <el-input v-model="form.courseName" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="教师姓名">
-              <el-select v-model="form.teacherName" placeholder="请选择">
-                <el-option
-                    v-for="(item,index) in teachers"
-                    :key="index"
-                    :label="item.teacherName"
-                    :value="item.teacherName">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="save">确 定</el-button>
-          </div>
-        </el-dialog>
+    <el-dialog title="新增课程" :visible.sync="dialogFormVisible" width="30%">
+      <el-form :model="form" label-width="80px" size="small" :rules="rules">
+        <el-form-item label="课程名" prop="courseName">
+          <el-input v-model="form.courseName" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="教师姓名" prop="teacherName">
+          <el-select v-model="form.teacherName" placeholder="请选择">
+            <el-option
+                v-for="(item,index) in teachers"
+                :key="index"
+                :label="item.teacherName"
+                :value="item.teacherName">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="save">确 定</el-button>
+      </div>
+    </el-dialog>
 
-        <!--        编辑表单-->
-        <el-dialog title="编辑信息" :visible.sync="dialogFormVisibleEdit" width="30%">
-          <el-form :model="form" label-width="70px" size="small">
-            <el-form-item label="课程名">
-              <el-input v-model="form.courseName" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="教师姓名">
-              <el-select v-model="form.teacherName" placeholder="请选择">
-                <el-option
-                    v-for="(item,index) in teachers"
-                    :key="index"
-                    :label="item.teacherName"
-                    :value="item.teacherName">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisibleEdit = false">取 消</el-button>
-            <el-button type="primary" @click="saveEdit()">确 定</el-button>
-          </div>
-        </el-dialog>
+    <!--        编辑表单-->
+    <el-dialog title="编辑信息" :visible.sync="dialogFormVisibleEdit" width="30%">
+      <el-form :model="form" label-width="80px" size="small" :rules="rules">
+        <el-form-item label="课程名" prop="courseName">
+          <el-input v-model="form.courseName" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="教师姓名" prop="teacherName">
+          <el-select v-model="form.teacherName" placeholder="请选择">
+            <el-option
+                v-for="(item,index) in teachers"
+                :key="index"
+                :label="item.teacherName"
+                :value="item.teacherName">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisibleEdit = false">取 消</el-button>
+        <el-button type="primary" @click="saveEdit()">确 定</el-button>
+      </div>
+    </el-dialog>
     <el-table
         :data="tableData"
         border stripe
@@ -109,7 +109,7 @@ export default {
   name: "Courses",
   data() {
     return {
-      teachers:[],
+      teachers: [],
       tableData: [],
       collapseBtnClass: 'el-icon-s-fold',
       isCollapse: false,//侧边栏是否收缩
@@ -125,6 +125,14 @@ export default {
         total: 0,//总记录数
         courseName: '',
         teacherName: ''
+      },
+      rules: {
+        courseName: {
+          required: true, message: '请输入课程姓名', trigger: 'blur'
+        },
+        teacherName: {
+          required: true, message: '请选择教师', trigger: 'blur'
+        },
       },
       user: localStorage.getItem("user") ? JSON.stringify("user") : {}
     }
@@ -146,7 +154,7 @@ export default {
 
 
         // 去重
-        let tempData2 =resp.data.records;
+        let tempData2 = resp.data.records;
         let hash = {};
         tempData2 = tempData2.reduce(function (item, next) {
           hash[next.teacherName] ? '' : hash[next.teacherName] = true && item.push(next);
@@ -164,9 +172,9 @@ export default {
       this.$message.success("导入成功");
       this.load();
     },
-    handleSave(){
+    handleSave() {
       this.dialogFormVisible = true;
-      this.form={};
+      this.form = {};
     },
     save() {//新增函数
       this.request.post("/courses", this.form).then(resp => {
@@ -208,7 +216,7 @@ export default {
     },
     reSet() {//重置搜索框
       this.pagination.courseName = "";
-      this.pagination.teacherName='';
+      this.pagination.teacherName = '';
       this.load();
     },
     handleDelete(row) {//删除
@@ -257,7 +265,7 @@ export default {
     handleCurrentChange(current) {
       this.pagination.currentPage = current;
       this.load();
-    } ,headerBg() {
+    }, headerBg() {
       return 'background:#eee !important ;text-align: center';
     },
     cellStyle() {

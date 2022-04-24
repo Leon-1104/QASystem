@@ -25,17 +25,17 @@
     </div>
     <!--        新增表单-->
     <el-dialog title="新增学生" :visible.sync="dialogFormVisible" width="30%">
-      <el-form :model="form" label-width="70px" size="small">
-        <el-form-item label="姓名">
+      <el-form :model="form" label-width="80px" size="small" :rules="rules">
+        <el-form-item label="姓名" prop="studentName">
           <el-input v-model="form.studentName" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="性别">
+        <el-form-item label="性别" prop="gender">
           <el-select v-model="form.gender" placeholder="请选择性别">
             <el-option label="男" value="男"></el-option>
             <el-option label="女" value="女"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="年级">
+        <el-form-item label="年级" prop="grade">
           <!--              <el-select v-model="form.grade" placeholder="请选择年级">-->
           <!--                <el-option label="2019" value="2019"></el-option>-->
           <!--                <el-option label="2020" value="2020"></el-option>-->
@@ -43,22 +43,22 @@
           <!--              </el-select>-->
           <el-input v-model="form.grade" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="专业">
+        <el-form-item label="专业" prop="major">
           <el-input v-model="form.major" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="班级">
+        <el-form-item label="班级" prop="cls">
           <el-input v-model="form.cls" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="学院">
+        <el-form-item label="学院" prop="institute">
           <el-input v-model="form.institute" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="电话">
+        <el-form-item label="电话" prop="tel">
           <el-input v-model="form.tel" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱">
+        <el-form-item label="邮箱" prop="email">
           <el-input v-model="form.email" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="身份证号">
+        <el-form-item label="身份证号" prop="cardId">
           <el-input v-model="form.cardId" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
@@ -70,17 +70,17 @@
 
     <!--        编辑表单-->
     <el-dialog title="编辑信息" :visible.sync="dialogFormVisibleEdit" width="30%">
-      <el-form :model="form" label-width="70px" size="small">
-        <el-form-item label="姓名">
+      <el-form :model="form" label-width="80px" size="small" :rules="rules">
+        <el-form-item label="姓名" prop="studentName">
           <el-input v-model="form.studentName" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="性别">
+        <el-form-item label="性别" prop="gender">
           <el-select v-model="form.gender" placeholder="请选择性别">
             <el-option label="男" value="男"></el-option>
             <el-option label="女" value="女"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="年级">
+        <el-form-item label="年级" prop="grade">
           <!--              <el-select v-model="form.grade" placeholder="请选择年级">-->
           <!--                <el-option label="2019" value="2019"></el-option>-->
           <!--                <el-option label="2020" value="2020"></el-option>-->
@@ -88,22 +88,22 @@
           <!--              </el-select>-->
           <el-input v-model="form.grade" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="专业">
+        <el-form-item label="专业" prop="major">
           <el-input v-model="form.major" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="班级">
+        <el-form-item label="班级" prop="cls">
           <el-input v-model="form.cls" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="学院">
+        <el-form-item label="学院" prop="institute">
           <el-input v-model="form.institute" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="电话">
+        <el-form-item label="电话" prop="tel">
           <el-input v-model="form.tel" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱">
+        <el-form-item label="邮箱" prop="email">
           <el-input v-model="form.email" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="身份证号">
+        <el-form-item label="身份证号" prop="cardId">
           <el-input v-model="form.cardId" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
@@ -186,6 +186,31 @@ export default {
         studentId: '',
         studentName: '',
         major: '',
+
+      },
+      rules: {
+        studentName: [
+          {required: true, message: '请输入学生姓名', trigger: 'blur'}
+        ],
+        gender: [
+          {required: true, message: '请输入性别', trigger: 'blur'}
+        ],
+        grade: [
+          {required: true, message: '请输入年级', trigger: 'blur'}
+        ],
+        major: [
+          {required: true, message: '请输入专业', trigger: 'blur'}
+        ], cls: [
+          {required: true, message: '请输入班级', trigger: 'blur'}
+        ],
+        institute: [
+          {required: true, message: '请输入学院', trigger: 'blur'}
+        ], tel: [
+          {required: true, message: '请输入电话', trigger: 'blur'}
+        ], email: [
+          {required: true, message: '请输入邮箱', trigger: 'blur'}
+        ], cardId: [{required: true, message: '请输入身份证', trigger: 'blur'}
+        ]
 
       },
       role: this.$cookies.get("role"),
@@ -272,9 +297,9 @@ export default {
         this.request.delete("/students/" + row.studentId).then(resp => {
           //判断操作是否成功
           if (resp.flag) {
-            this.$message.success(res.msg);
+            this.$message.success(resp.msg);
           } else {
-            this.$message.error(res.msg)
+            this.$message.error(resp.msg)
           }
 
         }).finally(() => {//刷新页面

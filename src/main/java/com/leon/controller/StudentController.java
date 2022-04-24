@@ -67,7 +67,8 @@ public class StudentController {
      */
     @PutMapping
     public Result update(@RequestBody Student student) {
-        return new Result(studentService.updateById(student));
+        boolean flag = studentService.updateById(student);
+        return new Result(flag,flag?"修改成功":"修改失败");
     }
 
     /**
@@ -78,8 +79,8 @@ public class StudentController {
      */
     @DeleteMapping("{id}")
     public Result delete(@PathVariable Integer id) {
-
-        return new Result(studentService.removeById(id));
+        boolean flag = studentService.removeById(id);
+        return new Result(flag, flag ? "删除成功" : "删除失败");
     }
 
     /**

@@ -13,11 +13,11 @@
     </div>
     <!--            新增表单-->
     <el-dialog title="新增文章" :visible.sync="dialogFormVisible" width="60%">
-      <el-form :model="form" label-width="70px" size="small">
-        <el-form-item label="文章标题">
+      <el-form :model="form" label-width="80px" size="small" :rules="rules">
+        <el-form-item label="文章标题" prop="name">
           <el-input v-model="form.name" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="文章类型">
+        <el-form-item label="文章类型" prop="type">
           <el-select v-model="form.type" placeholder="请选择">
             <el-option
                 v-for="item in types"
@@ -28,7 +28,7 @@
 
           </el-select>
         </el-form-item>
-        <el-form-item label="内容">
+        <el-form-item label="内容" prop="content">
           <mavon-editor ref="md" v-model="form.content" :ishljs="true" @imgAdd="imgAdd"/>
         </el-form-item>
       </el-form>
@@ -40,11 +40,22 @@
 
     <!--        编辑表单-->
     <el-dialog title="编辑文章" :visible.sync="dialogFormVisibleEdit" width="60%">
-      <el-form :model="form" label-width="70px" size="small">
-        <el-form-item label="文章标题">
+      <el-form :model="form" label-width="80px" size="small" :rules="rules">
+        <el-form-item label="文章标题" prop="name">
           <el-input v-model="form.name" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="内容">
+        <el-form-item label="文章类型" prop="type">
+          <el-select v-model="form.type" placeholder="请选择">
+            <el-option
+                v-for="item in types"
+                :label="item.label"
+                :value="item.value"
+                :key="item"
+            ></el-option>
+
+          </el-select>
+        </el-form-item>
+        <el-form-item label="内容" prop="content">
           <mavon-editor ref="md" v-model="form.content" :ishljs="true" @imgAdd="imgAdd"/>
         </el-form-item>
       </el-form>
@@ -159,6 +170,11 @@ export default {
         {label: '新闻', value: 'NEWS'},
         {label: '公告', value: 'ANN'},
       ],
+      rules: {
+        name: [{required: true, message: "请输入文章标题", trigger: 'blur'}],
+        content: [{required: true, message: "请输入内容", trigger: 'blur'}],
+        type: [{required: true, message: "请选择文章类型", trigger: 'blur'}],
+      },
       content: '',
       viewDialogVis: false,
       user: localStorage.getItem("user") ? JSON.stringify("user") : {}
