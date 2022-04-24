@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leon.mapper.ReserveInfosMapper">
+
+    <resultMap id="ResInfosPage" type="com.leon.entity.ReserveInfos">
+        <result column="id" property="id"/>
+        <result column="teacher_id" property="teacherId"/>
+        <result column="teacher_name" property="teacherName"/>
+        <result column="student_id" property="studentId"/>
+        <result column="student_name" property="studentName"/>
+        <result column="course_id" property="courseId"/>
+        <result column="course_name" property="courseName"/>
+        <result column="office" property="office"/>
+        <result column="res_time" property="resTime" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
+    </resultMap>
+
+    <select id="stuFindPage" resultMap="ResInfosPage">
+        select r.* from qarsystem.reserve_infos r
+                            left join qarsystem.course c on r.course_id = c.course_id
+                            left join qarsystem.student s on r.student_id = s.student_id
+                            left join qarsystem.teacher t on r.teacher_id = t.teacher_id
+        <where>
+            <if test="id!=null and id !=''">
+                r.student_id = #{id}
+            </if>
+            <if test="teacherName!=null and teacherName !=''">
+               and r.teacher_name like concat('%',#{teacherName},'%')
+            </if>
+            <if test="courseName!=null and courseName !=''">
+                and r.course_name like concat('%', #{courseName} ,'%')
+            </if>
+
+        </where>
+    </select>
+    <select id="teacherPage" resultMap="ResInfosPage">
+        select r.* from qarsystem.reserve_infos r
+        left join qarsystem.course c on r.course_id = c.course_id
+        left join qarsystem.student s on r.student_id = s.student_id
+        left join qarsystem.teacher t on r.teacher_id = t.teacher_id
+        <where>
+            <if test="id!=null and id !=''">
+                r.teacher_id = #{id}
+            </if>
+            <if test="studentName!=null and studentName !=''">
+                and r.student_name like concat('%',#{studentName},'%')
+            </if>
+            <if test="courseName!=null and courseName !=''">
+                and r.course_name like concat('%', #{courseName} ,'%')
+            </if>
+
+        </where>
+    </select>
+
+</mapper>

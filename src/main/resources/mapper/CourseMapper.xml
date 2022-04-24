@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leon.mapper.CourseMapper">
+
+
+    <select id="findPage" resultType="com.leon.entity.Course">
+        select c.*, t.teacher_name as teacherName
+        from qarsystem.course c
+        left join qarsystem.teacher t on t.teacher_id = c.teacher_id
+        <where>
+            <if test="courseName != null and courseName != ''">
+                c.course_name like concat('%',#{courseName},'%')
+            </if>
+            <if test="teacherName != null and teacherName != ''">
+              and  c.teacher_name like concat('%',#{teacherName},'%')
+            </if>
+        </where>
+        order by c.course_id
+    </select>
+</mapper>

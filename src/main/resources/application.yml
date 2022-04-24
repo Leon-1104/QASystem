@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/qarsystem?serverTimezone=GMT%2b8
+    username: root
+    password: 1234
+
+server:
+  port: 9090
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true   #  关闭驼峰命名转换
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #日志
+
+
+files:
+  upload:
+    path: G:\lastDesign\lastDemo\files\
+
