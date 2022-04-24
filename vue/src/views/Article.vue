@@ -98,7 +98,11 @@
       </el-table-column>
       <el-table-column prop="user" label="发布人">
       </el-table-column>
-      <el-table-column prop="type" label="类型">
+      <el-table-column prop="type" label="类型" width="80">
+        <template v-slot="scope">
+          <i v-if="scope.row.type==='ANN'" style="color: dodgerblue">公告</i>
+          <i v-else-if="scope.row.type==='NEWS'" style="color: #42b983">新闻</i>
+        </template>
       </el-table-column>
       <el-table-column label="操作" width="200" align="center">
         <template slot-scope="scope">
@@ -198,7 +202,6 @@ export default {
         this.pagination.currentPage = resp.data.current;
         this.pagination.pageSize = resp.data.size;
         this.tableData = resp.data.records;
-
 
 
         // // 去重

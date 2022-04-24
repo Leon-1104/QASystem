@@ -67,6 +67,7 @@
         :data="tableData"
         border stripe
         :header-cell-style="headerBg"
+        :cell-style="cellStyle"
         @selection-change="handleSelectionChange"
         tooltip-effect="dark"
     >
@@ -114,7 +115,7 @@ export default {
       isCollapse: false,//侧边栏是否收缩
       sideWidth: 200,
       logoTextShow: true,//侧边栏名称是否显示
-      headerBg: 'headerBg',//表格头部北京
+
       dialogFormVisible: false,
       dialogFormVisibleEdit: false,
       form: {},//表单数据
@@ -256,14 +257,15 @@ export default {
     handleCurrentChange(current) {
       this.pagination.currentPage = current;
       this.load();
-    }
+    } ,headerBg() {
+      return 'background:#eee !important ;text-align: center';
+    },
+    cellStyle() {
+      return '  text-align: center;font-size: 13px;'
+    },
 
   }
 }
 </script>
 
-<style scoped>
-.headerBg {
-  background: #eee !important;
-}
-</style>
+
