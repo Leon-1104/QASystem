@@ -11,7 +11,7 @@
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
       <el-form-item label="用户名" prop="username">
-        <el-input v-model="this.username"  disabled autocomplete="off"></el-input>
+        <el-input v-model="this.username" disabled autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="性别" prop="gender">
         <el-select v-model="form.gender" placeholder="请选择性别">
@@ -20,11 +20,6 @@
         </el-select>
       </el-form-item>
       <el-form-item label="年级" prop="grade">
-        <!--              <el-select v-model="form.grade" placeholder="请选择年级">-->
-        <!--                <el-option label="2019" value="2019"></el-option>-->
-        <!--                <el-option label="2020" value="2020"></el-option>-->
-        <!--                <el-option label="2021" value="2021"></el-option>-->
-        <!--              </el-select>-->
         <el-input v-model="form.grade" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="专业" prop="major">
@@ -63,9 +58,9 @@ export default {
       form: {},
       userId: this.$cookies.get('cid'),
       userRole: this.$cookies.get('role'),
-      username:this.$cookies.get('cname'),
+      username: this.$cookies.get('cname'),
       path: '',
-      user: localStorage.getItem("user") ? JSON.stringify("user") : {},rules: {
+      user: localStorage.getItem("user") ? JSON.stringify("user") : {}, rules: {
         username: [
           {required: true, message: '请输入学生姓名', trigger: 'blur'}
         ],
@@ -83,10 +78,13 @@ export default {
         institute: [
           {required: true, message: '请输入学院', trigger: 'blur'}
         ], tel: [
-          {required: true, message: '请输入电话', trigger: 'blur'}
+          {required: true, message: '请输入电话', trigger: 'blur'},
+          {pattern: /^[0-9]*$/, message: '电话号码只能为数字', trigger: 'blur'},
+          {len: 11, message: '电话号码为11位', trigger: 'blur'}
         ], email: [
-          {required: true, message: '请输入邮箱', trigger: 'blur'}
-        ], cardId: [{required: true, message: '请输入身份证', trigger: 'blur'}
+          {required: true, message: '请输入邮箱', trigger: 'blur'},
+        ], cardId: [{required: true, message: '请输入身份证', trigger: 'blur'},
+          {pattern: /^[0-9]*$/, message: '身份证号码只能为数字', trigger: 'blur'},
         ]
 
       },

@@ -75,7 +75,6 @@ public class CourseController {
             if (teacher.getTeacherName().equals(course.getTeacherName())) {
                 course.setTeacherName(teacher.getTeacherName());
                 course.setTeacherId(teacher.getTeacherId());
-
                 return new Result(courseService.save(course), "添加成功");
             }
 

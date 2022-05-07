@@ -180,7 +180,6 @@ export default {
       isCollapse: false,//侧边栏是否收缩
       sideWidth: 200,
       logoTextShow: true,//侧边栏名称是否显示
-
       dialogFormVisible: false,
       dialogFormVisibleEdit: false,
       dialogFormVisibleCourses: false,
@@ -205,19 +204,22 @@ export default {
         institute: [
           {required: true, message: '请输入学院', trigger: 'blur'}
         ], tel: [
-          {required: true, message: '请输入电话', trigger: 'blur'}
+          {required: true, message: '请输入电话', trigger: 'blur'},
+          {pattern: /^[0-9]*$/, message: '电话号码只能为数字', trigger: 'blur'},
+          {len: 11, message: '电话号码为11位', trigger: 'blur'}
         ], email: [
           {required: true, message: '请输入邮箱', trigger: 'blur'}
         ],
-        cardId: [{required: true, message: '请输入身份证', trigger: 'blur'}
+        cardId: [{required: true, message: '请输入身份证', trigger: 'blur'},
+          {pattern: /^[0-9]*$/, message: '身份证号码只能为数字', trigger: 'blur'},
         ],
         type: [{required: true, message: '请输入职称', trigger: 'blur'}
         ],
 
 
       },
-    user: localStorage.getItem("user") ? JSON.stringify("user") : {}
-  }
+      user: localStorage.getItem("user") ? JSON.stringify("user") : {}
+    }
   },
   created() {
     this.load()
@@ -233,7 +235,7 @@ export default {
         this.pagination.currentPage = resp.data.current;
         this.pagination.pageSize = resp.data.size;
         this.tableData = resp.data.records;
-        // console.log(this.tableData)
+        console.log(resp.data.records)
       })
     },
     exp() {

@@ -148,7 +148,6 @@ export default {
         this.icons = resp.data;
       })
     },
-
     handleSave(pid) {
       this.dialogFormVisible = true;
       this.form = {};
@@ -169,8 +168,6 @@ export default {
         this.load();
       });
     },
-
-
     handleEdit(row) {//弹出编辑窗口
       this.dialogFormVisibleEdit = true;
       this.request.get("/menu/" + row.id).then(resp => {
@@ -182,9 +179,6 @@ export default {
       }).finally(() => {
         this.load();
       });
-
-
-
     },
     saveEdit() { //保存编辑
       this.request.put("/menu", this.form).then(resp => {

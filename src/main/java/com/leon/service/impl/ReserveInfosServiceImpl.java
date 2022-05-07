@@ -42,6 +42,7 @@ public class ReserveInfosServiceImpl extends ServiceImpl<ReserveInfosMapper, Res
         lqw.like(Strings.isNotEmpty(reserveInfos.getTeacherName()), ReserveInfos::getTeacherName, reserveInfos.getTeacherName());
         lqw.like(Strings.isNotEmpty(reserveInfos.getStudentName()), ReserveInfos::getStudentName, reserveInfos.getStudentName());
         lqw.like(Strings.isNotEmpty(reserveInfos.getCourseName()), ReserveInfos::getCourseName, reserveInfos.getCourseName());
+        lqw.orderByDesc(ReserveInfos::getCreateTime);
         IPage<ReserveInfos> page = new Page<>(currentPage, pageSize);
         reserveInfosMapper.selectPage(page, lqw);
         return page;

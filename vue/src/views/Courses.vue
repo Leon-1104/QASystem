@@ -115,7 +115,6 @@ export default {
       isCollapse: false,//侧边栏是否收缩
       sideWidth: 200,
       logoTextShow: true,//侧边栏名称是否显示
-
       dialogFormVisible: false,
       dialogFormVisibleEdit: false,
       form: {},//表单数据
@@ -124,7 +123,9 @@ export default {
         pageSize: 10,//每页显示的记录数
         total: 0,//总记录数
         courseName: '',
-        teacherName: ''
+        teacherName: '',
+        teacherId: '',
+        type: ''
       },
       rules: {
         courseName: {
@@ -153,6 +154,24 @@ export default {
         this.tableData = resp.data.records;
 
 
+        // // 去重
+        // let tempData2 = resp.data.records;
+        // let hash = {};
+        // tempData2 = tempData2.reduce(function (item, next) {
+        //   hash[next.teacherName] ? '' : hash[next.teacherName] = true && item.push(next);
+        //   return item;
+        // }, []);
+        // this.teachers = tempData2;
+
+
+      })
+      let param2 = "?teacherId=" + this.pagination.teacherId;
+      param2 += "&teacherName=" + this.pagination.teacherName;
+      param2 += "&type=" + this.pagination.type;
+      this.request.get("/teachers/" + this.pagination.currentPage + "/" + this.pagination.pageSize + param2).then(resp => {
+        // this.pagination.total = resp.data.total;
+        // this.pagination.currentPage = resp.data.current;
+        // this.pagination.pageSize = resp.data.size;
         // 去重
         let tempData2 = resp.data.records;
         let hash = {};
@@ -161,8 +180,6 @@ export default {
           return item;
         }, []);
         this.teachers = tempData2;
-
-
       })
     },
     exp() {

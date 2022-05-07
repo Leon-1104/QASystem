@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.leon.mapper.ReserveInfosMapper">
-
     <resultMap id="ResInfosPage" type="com.leon.entity.ReserveInfos">
         <result column="id" property="id"/>
         <result column="teacher_id" property="teacherId"/>
@@ -30,8 +29,8 @@
             <if test="courseName!=null and courseName !=''">
                 and r.course_name like concat('%', #{courseName} ,'%')
             </if>
-
         </where>
+        order by r.create_time desc
     </select>
     <select id="teacherPage" resultMap="ResInfosPage">
         select r.* from qarsystem.reserve_infos r
@@ -48,8 +47,9 @@
             <if test="courseName!=null and courseName !=''">
                 and r.course_name like concat('%', #{courseName} ,'%')
             </if>
-
         </where>
+        order by r.create_time desc
     </select>
+    <select id="findPage" resultType="com.leon.entity.ReserveInfos"></select>
 
 </mapper>

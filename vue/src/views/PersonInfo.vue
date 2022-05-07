@@ -1,7 +1,6 @@
 <template>
   <el-card style="width: 700px;margin: 0 auto" >
-    <el-form :model="form" label-width="70px" size="small">
-
+    <el-form :model="form" :rules="rules" label-width="70px" size="small">
       <el-upload
           class="avatar-uploader"
           action="http://localhost:9090/file/upload"
@@ -10,7 +9,7 @@
         <img v-if="form.avatar" :src="form.avatar" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
-      <el-form-item label="用户名" >
+      <el-form-item label="用户名">
         <el-input  v-if="this.userRole==='0'"  v-model="form.adminName"  autocomplete="off"></el-input>
         <el-input  v-else  v-model="form.teacherName"  autocomplete="off"></el-input>
       </el-form-item>
@@ -23,25 +22,25 @@
       <el-form-item label="年级" v-if="this.userRole==='2'" prop="grade">
         <el-input v-model="form.grade" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="专业" v-if="this.userRole==='2'">
+      <el-form-item label="专业" v-if="this.userRole==='2'" prop="major">
         <el-input v-model="form.major" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="班级" v-if="this.userRole==='2'">
+      <el-form-item label="班级" v-if="this.userRole==='2'" prop="cls">
         <el-input v-model="form.cls" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="学院" v-if="this.userRole==='2'||this.userRole==='1'">
         <el-input v-model="form.institute" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="职称" v-if="this.userRole==='1'">
+      <el-form-item label="职称" v-if="this.userRole==='1'" prop="type">
         <el-input v-model="form.type" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="电话">
+      <el-form-item label="电话" prop="tel">
         <el-input v-model="form.tel" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="邮箱">
+      <el-form-item label="邮箱" prop="email">
         <el-input v-model="form.email" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="身份证号">
+      <el-form-item label="身份证号" prop="cardId">
         <el-input v-model="form.cardId" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item>
@@ -59,6 +58,33 @@ export default {
   name: "PersonInfo",
   data() {
     return {
+      rules: {
+        teacherName: [
+          {required: true, message: '请输入教师姓名', trigger: 'blur'}
+        ],
+        gender: [
+          {required: true, message: '请输入性别', trigger: 'blur'}
+        ],
+        office: [
+          {required: true, message: '请输入办公室', trigger: 'blur'}
+        ],
+        institute: [
+          {required: true, message: '请输入学院', trigger: 'blur'}
+        ],
+        tel: [
+          {required: true, message: '请输入电话', trigger: 'blur'},
+          {pattern: /^[0-9]*$/, message: '电话号码只能为数字', trigger: 'blur'},
+          {len: 11, message: '电话号码为11位', trigger: 'blur'}
+        ], email: [
+          {required: true, message: '请输入邮箱', trigger: 'blur'}
+        ],
+        cardId: [{required: true, message: '请输入身份证', trigger: 'blur'},
+          {pattern: /^[0-9]*$/, message: '身份证号码只能为数字', trigger: 'blur'},
+        ],
+        type: [{required: true, message: '请输入职称', trigger: 'blur'}
+        ],
+
+      },
       form: {},
       userId: this.$cookies.get('cid'),
       userRole: this.$cookies.get('role'),

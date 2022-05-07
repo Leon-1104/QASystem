@@ -108,7 +108,6 @@ export default {
         this.pagination.pageSize = resp.data.size;
         resp.data.records.forEach(item => {
           item.resTime = this.formatDateTime(item.resTime)
-
         })
         this.tableData = resp.data.records;
 

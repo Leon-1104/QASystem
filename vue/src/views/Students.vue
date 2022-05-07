@@ -206,10 +206,13 @@ export default {
         institute: [
           {required: true, message: '请输入学院', trigger: 'blur'}
         ], tel: [
-          {required: true, message: '请输入电话', trigger: 'blur'}
+          {required: true, message: '请输入电话', trigger: 'blur'},
+          {pattern: /^[0-9]*$/, message: '电话号码只能为数字', trigger: 'blur'},
+          {len: 11, message: '电话号码为11位', trigger: 'blur'}
         ], email: [
           {required: true, message: '请输入邮箱', trigger: 'blur'}
         ], cardId: [{required: true, message: '请输入身份证', trigger: 'blur'}
+          , {pattern: /^[0-9]*$/, message: '身份证号码只能为数字', trigger: 'blur'},
         ]
 
       },
