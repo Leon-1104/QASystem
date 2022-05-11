@@ -31,7 +31,10 @@
       <el-form-item label="学院" v-if="this.userRole==='2'||this.userRole==='1'">
         <el-input v-model="form.institute" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="职称" v-if="this.userRole==='1'" prop="type">
+      <el-form-item label="办公室" v-if="this.userRole==='1'" prop="office">
+        <el-input v-model="form.office" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="职称" v-if="this .userRole==='1'" prop="type">
         <el-input v-model="form.type" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="电话" prop="tel">
@@ -78,6 +81,7 @@ export default {
         ], email: [
           {required: true, message: '请输入邮箱', trigger: 'blur'}
         ],
+
         cardId: [{required: true, message: '请输入身份证', trigger: 'blur'},
           {pattern: /^[0-9]*$/, message: '身份证号码只能为数字', trigger: 'blur'},
         ],

@@ -43,7 +43,7 @@
           <i class="el-icon-info" v-if="scope.row.acceptFlag==='WAIT'" style="color: dodgerblue">待处理</i>
           <i class="el-icon-success" v-else-if="scope.row.acceptFlag==='ACCEPT'" style="color: #42b983">已接受</i>
           <i class="el-icon-error" v-else-if="scope.row.acceptFlag==='REFUSE'" style="color: red">已拒绝</i>
-          <i class="el-icon-info" v-else-if="Date.parse(scope.row.resTime)<Date.now()" style="color: gray">已过期</i>
+          <i class="el-icon-info" v-if="Date.parse(scope.row.resTime)<Date.now()" style="color: gray">已过期</i>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="200" align="center">

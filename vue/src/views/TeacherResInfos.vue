@@ -70,7 +70,7 @@
           <i class="el-icon-info" v-if="scope.row.acceptFlag==='WAIT'" style="color: dodgerblue">待处理</i>
           <i class="el-icon-success" v-else-if="scope.row.acceptFlag==='ACCEPT'" style="color: #42b983">已接受</i>
           <i class="el-icon-error" v-else-if="scope.row.acceptFlag==='REFUSE'" style="color: red">已拒绝</i>
-          <i class="el-icon-info" v-else-if="Date.parse(scope.row.resTime)<Date.now()" style="color: gray">已过期</i>
+<!--          <i class="el-icon-info" v-else-if="Date.parse(scope.row.resTime)<Date.now()" style="color: gray">已过期</i>-->
         </template>
       </el-table-column>
       <el-table-column label="是否过期">
@@ -80,7 +80,7 @@
         </template>
       </el-table-column>
       <el-table-column label="操作" width="200" align="center">
-        <template slot-scope="scope">
+        <template slot-scope="scope" v-if="Date.parse(scope.row.resTime)>Date.now()&&scope.row.acceptFlag=='WAIT'">
           <el-button type="success" @click="handleAccept(scope.row)">接受 <i class="el-icon-circle-check"></i></el-button>
           <el-button type="danger" @click="handleRefuse(scope.row)">拒绝 <i class="el-icon-circle-close"></i>
           </el-button>
